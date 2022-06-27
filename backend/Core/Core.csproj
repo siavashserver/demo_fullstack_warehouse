@@ -12,7 +12,6 @@
     <Folder Include="Features\LineItem" />
     <Folder Include="Features\Order" />
     <Folder Include="Features\Product" />
-    <Folder Include="Interfaces" />
   </ItemGroup>
 
 </Project>
