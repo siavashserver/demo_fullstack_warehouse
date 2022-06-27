@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <Folder Include="Enums" />
-    <Folder Include="Features\Customer" />
-    <Folder Include="Features\LineItem" />
-    <Folder Include="Features\Order" />
-    <Folder Include="Features\Product" />
+    <Folder Include="Features\LineItem\Queries" />
+    <Folder Include="Features\Order\Queries" />
+    <Folder Include="Features\Product\Queries" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
   </ItemGroup>
 
 </Project>
