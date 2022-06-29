@@ -33,7 +33,7 @@ public class LineItemRepo : ILineItemRepo
         return count;
     }
 
-    public async Task<List<decimal>> GetMonthlyGrossRevenueList(int year)
+    public async Task<List<double>> GetMonthlyGrossRevenueList(int year)
     {
         var revenue = await _dataContext
             .LineItems
