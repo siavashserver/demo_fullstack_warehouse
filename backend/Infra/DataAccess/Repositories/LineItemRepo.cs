@@ -12,24 +12,23 @@ public class LineItemRepo : ILineItemRepo
         _dataContext = dataContext;
     }
 
-    public async Task<int> GetProductsSoldCount(int productId)
+    public async Task<int> GetProductsSoldCountBeforeDate(int productId, DateTime? date)
     {
-        var count = await _dataContext
+        var countQuery = _dataContext
             .LineItems
             .Where(lineItem => lineItem.ProductId == productId)
+            .AsQueryable();
+
+        if (date is not null)
+        {
+            countQuery = countQuery
+                .Where(lineItem => lineItem.Date <= date)
+                .AsQueryable();
+        }
+        
+        var count = await countQuery
             .SumAsync(lineItem => lineItem.Amount);
-
-        return count;
-    }
-
-    public async Task<int> GetProductsSoldCountBeforeDate(int productId, DateTime date)
-    {
-        var count = await _dataContext
-            .LineItems
-            .Where(lineItem => lineItem.ProductId == productId)
-            .Where(lineItem => lineItem.Date <= date)
-            .SumAsync(lineItem => lineItem.Amount);
-
+        
         return count;
     }
 

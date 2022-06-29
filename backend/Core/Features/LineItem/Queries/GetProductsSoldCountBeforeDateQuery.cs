@@ -5,7 +5,7 @@ namespace Core.Features.LineItem.Queries;
 
 public static class GetProductsSoldCountBeforeDateQuery
 {
-    public record Request(int ProductId, DateTime Date) : IRequest<int>;
+    public record Request(int ProductId, DateTime? Date) : IRequest<int>;
 
     public class Handler : IRequestHandler<Request, int>
     {
