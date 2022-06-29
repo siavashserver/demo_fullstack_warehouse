@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using Core.Constants;
+using Core.Interfaces;
 using Core.Records;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ public class LineItemRepo : ILineItemRepo
         _dataContext = dataContext;
     }
 
-    public async Task<int> GetProductsSoldCountBeforeDate(int productId, DateTime? date)
+    public async Task<int> GetProductsLeftCountBeforeDate(int productId, DateTime? date)
     {
         var countQuery = _dataContext
             .LineItems
@@ -28,7 +29,9 @@ public class LineItemRepo : ILineItemRepo
         var count = await countQuery
             .SumAsync(lineItem => lineItem.Amount);
 
-        return count;
+        var productsLeft = InitialProductCount.Count - count;
+
+        return productsLeft;
     }
 
     public async Task<List<MonthlyGrossRevenue>> GetMonthlyGrossRevenueList(int year)

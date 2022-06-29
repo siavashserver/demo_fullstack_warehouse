@@ -14,9 +14,9 @@ public class LineItemController : BaseAPIController
     }
 
     [HttpGet("/productsLeft/{productId:int}")]
-    public async Task<ActionResult<int>> GetProductsSoldCount(int productId, [FromQuery] DateTime? beforeDate)
+    public async Task<ActionResult<int>> GetProductsLeftCount(int productId, [FromQuery] DateTime? beforeDate)
     {
-        var count = await _mediator.Send(new GetProductsSoldCountBeforeDateQuery.Request(productId, beforeDate));
+        var count = await _mediator.Send(new GetProductsLeftCountBeforeDateQuery.Request(productId, beforeDate));
         return Ok(count);
     }
 

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Core.Features.LineItem.Queries;
 
-public static class GetProductsSoldCountBeforeDateQuery
+public static class GetProductsLeftCountBeforeDateQuery
 {
     public record Request(int ProductId, DateTime? Date) : IRequest<int>;
 
@@ -18,7 +18,7 @@ public static class GetProductsSoldCountBeforeDateQuery
 
         public async Task<int> Handle(Request request, CancellationToken cancellationToken)
         {
-            var count = await _lineItemRepo.GetProductsSoldCountBeforeDate(request.ProductId, request.Date);
+            var count = await _lineItemRepo.GetProductsLeftCountBeforeDate(request.ProductId, request.Date);
             return count;
         }
     }
