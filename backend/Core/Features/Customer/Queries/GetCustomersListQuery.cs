@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using FluentValidation;
 using MediatR;
 
 namespace Core.Features.Customer.Queries;
@@ -21,5 +22,9 @@ public static class GetCustomersListQuery
             var customers = await _customerRepo.GetCustomers();
             return customers;
         }
+    }
+
+    public class Validator : AbstractValidator<Request>
+    {
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using FluentValidation;
 using MediatR;
 
 namespace Core.Features.Product.Queries;
@@ -21,5 +22,9 @@ public static class GetProductsListQuery
             var products = await _productRepo.GetProducts();
             return products;
         }
+    }
+
+    public class Validator : AbstractValidator<Request>
+    {
     }
 }

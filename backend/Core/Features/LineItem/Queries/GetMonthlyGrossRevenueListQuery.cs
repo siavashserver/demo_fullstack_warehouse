@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using Core.Records;
+using FluentValidation;
 using MediatR;
 
 namespace Core.Features.LineItem.Queries;
@@ -21,6 +22,17 @@ public static class GetMonthlyGrossRevenueListQuery
         {
             var grossRevenue = await _lineItemRepo.GetMonthlyGrossRevenueList(request.Year);
             return grossRevenue;
+        }
+    }
+
+    public class Validator : AbstractValidator<Request>
+    {
+        public Validator()
+        {
+            RuleFor(request => request.Year)
+                .NotEmpty()
+                .GreaterThan(0)
+                .LessThanOrEqualTo(DateTime.Now.Year);
         }
     }
 }

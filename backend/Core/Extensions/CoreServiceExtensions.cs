@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Core.PipelineBehaviors;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,10 @@ public static class CoreServiceExtensions
     {
         // Setup MediatR
         services.AddMediatR(typeof(CoreServiceExtensions));
+
+        // Setup Validation Behavior
+        services.AddValidatorsFromAssembly(typeof(CoreServiceExtensions).Assembly);
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;
     }

@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using FluentValidation;
 using MediatR;
 
 namespace Core.Features.Order.Queries;
@@ -20,6 +21,16 @@ public static class GetCustomerOrdersListQuery
         {
             var orders = await _orderRepo.GetCustomerOrders(request.CustomerId);
             return orders;
+        }
+    }
+
+    public class Validator : AbstractValidator<Request>
+    {
+        public Validator()
+        {
+            RuleFor(request => request.CustomerId)
+                .NotEmpty()
+                .GreaterThan(0);
         }
     }
 }
