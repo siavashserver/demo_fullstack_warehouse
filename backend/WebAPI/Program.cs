@@ -1,25 +1,85 @@
+using Core.Extensions;
+using Infra.DataAccess;
+using Infra.DataAccess.Seed;
+using Infra.Extensions;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+/*********************************************************/
+/* Add services to the container *************************/
+/*********************************************************/
 
+// Setup Application Services
+builder.Services.AddCoreServices(builder.Configuration);
+builder.Services.AddInfraServices(builder.Configuration);
+
+// Setup CORS Services
+builder.Services.AddCors();
+// Setup Controller Services
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Setup OpenAPI/Swagger Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+/*********************************************************/
+/* Configure Application *********************************/
+/*********************************************************/
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Enable OpenAPI/Swagger Documentation
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// Enable HTTPS Redirection
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// Configure CORS
+app.UseCors(policy => policy
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyOrigin()
+);
 
 app.MapControllers();
+
+/*********************************************************/
+/* Migrate Database **************************************/
+/*********************************************************/
+
+{
+    // Get access to service provider
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        // Get access to DBContext (DataContext) service
+        var dataContext = services.GetRequiredService<DataContext>();
+
+        // Automatically run pending database migrations
+        // dotnet ef database update
+        await dataContext.Database.MigrateAsync();
+
+        // Seed database
+        var seed = new Seed(dataContext);
+        await seed.PopulateDatabase();
+    }
+    catch (Exception ex)
+    {
+        // Get access to Logger service
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occured during migration");
+    }
+}
+
+/*********************************************************/
+/* Run Application ***************************************/
+/*********************************************************/
 
 app.Run();
