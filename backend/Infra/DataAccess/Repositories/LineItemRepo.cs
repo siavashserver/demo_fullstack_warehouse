@@ -21,11 +21,9 @@ public class LineItemRepo : ILineItemRepo
             .AsQueryable();
 
         if (date is not null)
-        {
             countQuery = countQuery
                 .Where(lineItem => lineItem.Date <= date)
                 .AsQueryable();
-        }
 
         var count = await countQuery
             .SumAsync(lineItem => lineItem.Amount);

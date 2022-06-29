@@ -5,7 +5,7 @@ namespace Core.Features.Customer.Queries;
 
 public static class GetCustomersListQuery
 {
-    public record Request() : IRequest<List<Entities.Customer>>;
+    public record Request : IRequest<List<Entities.Customer>>;
 
     public class Handler : IRequestHandler<Request, List<Entities.Customer>>
     {

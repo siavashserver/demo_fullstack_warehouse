@@ -5,7 +5,7 @@ namespace Core.Features.Product.Queries;
 
 public static class GetProductsListQuery
 {
-    public record Request() : IRequest<List<Entities.Product>>;
+    public record Request : IRequest<List<Entities.Product>>;
 
     public class Handler : IRequestHandler<Request, List<Entities.Product>>
     {
