@@ -1,0 +1,68 @@
+﻿[
+  {
+    "OrderId": 1,
+    "Amount": 3,
+    "Date": "2021-03-01T00:00:00",
+    "ProductId": 1
+  },
+  {
+    "OrderId": 2,
+    "Amount": 1,
+    "Date": "2021-07-01T00:00:00",
+    "ProductId": 3
+  },
+  {
+    "OrderId": 3,
+    "Amount": 2,
+    "Date": "2021-09-01T00:00:00",
+    "ProductId": 1
+  },
+  {
+    "OrderId": 3,
+    "Amount": 1,
+    "Date": "2021-09-01T00:00:00",
+    "ProductId": 2
+  },
+  {
+    "OrderId": 3,
+    "Amount": 1,
+    "Date": "2021-09-01T00:00:00",
+    "ProductId": 3
+  },
+  {
+    "OrderId": 4,
+    "Amount": 2,
+    "Date": "2022-01-01T00:00:00",
+    "ProductId": 3
+  },
+  {
+    "OrderId": 5,
+    "Amount": 2,
+    "Date": "2021-04-01T00:00:00",
+    "ProductId": 3
+  },
+  {
+    "OrderId": 6,
+    "Amount": 1,
+    "Date": "2022-04-01T00:00:00",
+    "ProductId": 1
+  },
+  {
+    "OrderId": 6,
+    "Amount": 2,
+    "Date": "2022-04-01T00:00:00",
+    "ProductId": 2
+  },
+  {
+    "OrderId": 6,
+    "Amount": 1,
+    "Date": "2022-04-01T00:00:00",
+    "ProductId": 3
+  },
+  {
+    "OrderId": 7,
+    "Amount": 2,
+    "Date": "2022-06-01T00:00:00",
+    "ProductId": 1
+  }
+]

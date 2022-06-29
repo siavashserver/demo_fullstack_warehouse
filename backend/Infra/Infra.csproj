@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="DataAccess\Seed\Customer.json" />
+    <EmbeddedResource Include="DataAccess\Seed\LineItem.json" />
+    <EmbeddedResource Include="DataAccess\Seed\Order.json" />
+    <EmbeddedResource Include="DataAccess\Seed\Product.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
@@ -18,9 +25,4 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataAccess\Migrations" />
-  </ItemGroup>
-
 </Project>
