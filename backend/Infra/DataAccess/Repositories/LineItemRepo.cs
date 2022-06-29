@@ -1,4 +1,5 @@
 ﻿using Core.Interfaces;
+using Core.Records;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infra.DataAccess.Repositories;
@@ -25,24 +26,27 @@ public class LineItemRepo : ILineItemRepo
                 .Where(lineItem => lineItem.Date <= date)
                 .AsQueryable();
         }
-        
+
         var count = await countQuery
             .SumAsync(lineItem => lineItem.Amount);
-        
+
         return count;
     }
 
-    public async Task<List<double>> GetMonthlyGrossRevenueList(int year)
+    public async Task<List<MonthlyGrossRevenue>> GetMonthlyGrossRevenueList(int year)
     {
         var revenue = await _dataContext
             .LineItems
             .Include(lineItem => lineItem.Product)
             .Where(lineItem => lineItem.Date.Year == year)
-            .OrderBy(lineItem => lineItem.Date)
             .GroupBy(lineItem => lineItem.Date.Month)
+            .OrderBy(lineItemGroup => lineItemGroup.Key)
             .Select(
-                lineItemGroup => lineItemGroup.Sum(
-                    lineItems => lineItems.Amount * lineItems.Product.Price
+                lineItemGroup => new MonthlyGrossRevenue(
+                    lineItemGroup.Key,
+                    lineItemGroup.Sum(
+                        lineItems => lineItems.Amount * lineItems.Product.Price
+                    )
                 )
             )
             .ToListAsync();
