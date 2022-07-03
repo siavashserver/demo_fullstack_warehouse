@@ -1,17 +1,17 @@
 ﻿[
   {
     "ProductId": 1,
-    "Name": "Fries",
-    "Price": 2.0
+    "Name": "USB Flash Drive",
+    "Price": 10.0
   },
   {
     "ProductId": 2,
-    "Name": "Ketchup",
-    "Price": 4.0
+    "Name": "RAM",
+    "Price": 60.0
   },
   {
     "ProductId": 3,
-    "Name": "Burgers",
-    "Price": 10.0
+    "Name": "Laptop",
+    "Price": 800.0
   }
 ]
