@@ -5,7 +5,7 @@ export class HttpClient {
 
   constructor() {
     const API_BASE_URL =
-      process.env["API_BASE_URL"] ?? "https://localhost:7009/api/";
+      process.env["API_BASE_URL"] ?? "https://localhost:5001/api/";
     const TIMEOUT = 1000;
 
     this.client = axios.create({
