@@ -52,6 +52,15 @@ export class HttpClient {
     console.log(productId, productsLeft);
     return productsLeft;
   }
+
+  async getMonthlyGrossRevenueList(year: number) {
+    const response = await this.client.get<MonthlyGrossRevenueDTO[]>(
+      `LineItem/monthlyRevenue/${year}`
+    );
+    const monthlyGrossRevenueList = response.data;
+    console.log(monthlyGrossRevenueList);
+    return monthlyGrossRevenueList;
+  }
 }
 
 export interface CustomerDTO {
@@ -81,4 +90,9 @@ export interface OrderDTO {
   customerId: number;
   customer: CustomerDTO;
   lineItems: LineItemDTO[];
+}
+
+export interface MonthlyGrossRevenueDTO {
+  month: number;
+  grossRevenue: number;
 }

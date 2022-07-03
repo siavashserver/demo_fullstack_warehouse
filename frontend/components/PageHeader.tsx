@@ -64,14 +64,6 @@ const menuItems: MenuProps["items"] = [
         ),
         key: "monthly_gross_revenue",
       },
-      {
-        label: (
-          <Link href="/ProductsAvailablity">
-            <a>Products Availablity</a>
-          </Link>
-        ),
-        key: "products_availablity",
-      },
     ],
   },
 ];
