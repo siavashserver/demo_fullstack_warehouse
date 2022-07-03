@@ -15,14 +15,14 @@ export class HttpClient {
   }
 
   async getCustomerList() {
-    const response = await this.client.get<CustomerDTO[]>("customer");
+    const response = await this.client.get<CustomerDTO[]>("Customer");
     const customers = response.data;
     console.log(customers);
     return customers;
   }
 
   async getCustomerOrders(customerId: number) {
-    const response = await this.client.get<OrderDTO[]>("order", {
+    const response = await this.client.get<OrderDTO[]>("Order", {
       params: {
         customerId,
       },
@@ -30,6 +30,27 @@ export class HttpClient {
     const orders = response.data;
     console.log(orders);
     return orders;
+  }
+
+  async getProductsList() {
+    const response = await this.client.get<ProductDTO[]>("Product");
+    const products = response.data;
+    console.log(products);
+    return products;
+  }
+
+  async getProductsLeft(productId: number, beforeDate?: Date) {
+    const response = await this.client.get<number>(
+      `LineItem/productsLeft/${productId}`,
+      {
+        params: {
+          beforeDate,
+        },
+      }
+    );
+    const productsLeft = response.data;
+    console.log(productId, productsLeft);
+    return productsLeft;
   }
 }
 

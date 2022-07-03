@@ -1,4 +1,15 @@
 .page-contents {
-    padding: 2em;
-    min-height: 100vh;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.product-grid {
+  display: grid;
+  width: 100%; /* fill the parent */
+
+  /* row column gap */
+  gap: 2rem 1.5rem;
+
+  /* dynamic number of columns, with a min-width of 5rem, centered */
+  grid-template-columns: repeat(auto-fit, 20rem);
 }
