@@ -1,21 +1,11 @@
-import {
-  DatePicker,
-  DatePickerProps,
-  Segmented,
-  Space,
-  Typography,
-} from "antd";
-import { RangePickerProps } from "antd/lib/date-picker";
-import moment from "moment";
+import { Segmented, Space, Typography } from "antd";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import MonthlyRevenueChart from "../components/MonthlyRevenueChart";
-import ProductCard from "../components/ProductCard";
 import {
-  HttpClient,
+  CachedHttpClient,
   MonthlyGrossRevenueDTO,
-  ProductDTO,
 } from "../utility/HttpClient";
 
 const { Paragraph, Title } = Typography;
@@ -26,8 +16,7 @@ const MonthlyGrossRevenue: NextPage = () => {
 
   useEffect(() => {
     const fetchRevenue = async () => {
-      const client = new HttpClient();
-      const result = await client.getMonthlyGrossRevenueList(year);
+      const result = await CachedHttpClient.getMonthlyGrossRevenueList(year);
       setRevenueList(result);
     };
 

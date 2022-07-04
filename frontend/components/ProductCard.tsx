@@ -1,7 +1,7 @@
 import { Card, Descriptions } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { HttpClient, ProductDTO } from "../utility/HttpClient";
+import { CachedHttpClient, ProductDTO } from "../utility/HttpClient";
 
 interface ProductCardProps {
   product: ProductDTO;
@@ -13,8 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
 
   useEffect(() => {
     const fetchItemsLeft = async () => {
-      const client = new HttpClient();
-      const result = await client.getProductsLeft(
+      const result = await CachedHttpClient.getProductsLeft(
         props.product.productId,
         props.beforeDate
       );

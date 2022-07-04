@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import CustomerDetails from "../components/CustomerDetails";
 import CustomerSelector from "../components/CustomerSelector";
 import OrdersTable from "../components/OrdersTable";
-import { CustomerDTO, HttpClient, OrderDTO } from "../utility/HttpClient";
+import { CachedHttpClient, CustomerDTO, OrderDTO } from "../utility/HttpClient";
 
 const { Paragraph, Title } = Typography;
 
@@ -17,8 +17,7 @@ const CustomerOrders: NextPage = () => {
   // Get customers list
   useEffect(() => {
     const fetchCustomers = async () => {
-      const client = new HttpClient();
-      const result = await client.getCustomerList();
+      const result = await CachedHttpClient.getCustomerList();
       setCustomers(result);
     };
 
@@ -30,8 +29,9 @@ const CustomerOrders: NextPage = () => {
     const fetchOrders = async () => {
       if (null == activeCustomer) return;
 
-      const client = new HttpClient();
-      const result = await client.getCustomerOrders(activeCustomer.customerId);
+      const result = await CachedHttpClient.getCustomerOrders(
+        activeCustomer.customerId
+      );
       setOrders(result);
     };
 

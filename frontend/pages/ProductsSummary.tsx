@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { HttpClient, ProductDTO } from "../utility/HttpClient";
+import { CachedHttpClient, ProductDTO } from "../utility/HttpClient";
 
 const { Paragraph, Title } = Typography;
 
@@ -14,8 +14,7 @@ const ProductsSummary: NextPage = () => {
   // Get products list
   useEffect(() => {
     const fetchProductsList = async () => {
-      const client = new HttpClient();
-      const result = await client.getProductsList();
+      const result = await CachedHttpClient.getProductsList();
       setProductsList(result);
     };
 
