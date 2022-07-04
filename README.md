@@ -18,7 +18,13 @@ React.js on Front-End side, and ASP.NET on Back-End side.
   - MediatR
   - FluentValidation
 
-# Usage (Docker)
+# Live Demo
+
+Please visit
+[https://demo-fullstack-warehouse.vercel.app/](https://demo-fullstack-warehouse.vercel.app/)
+to try out the demo.
+
+# Local Test (Docker)
 
 Having Docker installed, simply run:
 
