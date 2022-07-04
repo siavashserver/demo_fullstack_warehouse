@@ -8,5 +8,7 @@ public class LineItemConfiguration : IEntityTypeConfiguration<LineItem>
 {
     public void Configure(EntityTypeBuilder<LineItem> builder)
     {
+        // WHERE
+        builder.HasIndex(lineItem => new { lineItem.ProductId, lineItem.Date });
     }
 }

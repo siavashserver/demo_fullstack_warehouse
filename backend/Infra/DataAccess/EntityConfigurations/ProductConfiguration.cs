@@ -8,5 +8,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
+        // ORDER BY
+        builder.HasIndex(product => product.Name);
     }
 }
