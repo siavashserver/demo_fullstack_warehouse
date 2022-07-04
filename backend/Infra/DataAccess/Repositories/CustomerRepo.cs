@@ -17,6 +17,7 @@ public class CustomerRepo : ICustomerRepo
     {
         var customers = await _dataContext
             .Customers
+            .AsNoTracking()
             .OrderBy(customer => customer.Name)
             .ToListAsync();
 

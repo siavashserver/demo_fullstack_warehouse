@@ -17,6 +17,7 @@ public class ProductRepo : IProductRepo
     {
         var products = await _dataContext
             .Products
+            .AsNoTracking()
             .OrderBy(product => product.Name)
             .ToListAsync();
 

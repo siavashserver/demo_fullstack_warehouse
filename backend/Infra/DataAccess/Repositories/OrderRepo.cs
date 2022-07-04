@@ -17,6 +17,7 @@ public class OrderRepo : IOrderRepo
     {
         var orders = await _dataContext
             .Orders
+            .AsNoTracking()
             .Include(order => order.Customer)
             .Include(order => order.LineItems)
             .ThenInclude(lineItem => lineItem.Product)

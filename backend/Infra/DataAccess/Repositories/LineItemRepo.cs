@@ -18,6 +18,7 @@ public class LineItemRepo : ILineItemRepo
     {
         var countQuery = _dataContext
             .LineItems
+            .AsNoTracking()
             .Where(lineItem => lineItem.ProductId == productId)
             .AsQueryable();
 
@@ -38,6 +39,7 @@ public class LineItemRepo : ILineItemRepo
     {
         var revenue = await _dataContext
             .LineItems
+            .AsNoTracking()
             .Include(lineItem => lineItem.Product)
             .Where(lineItem => lineItem.Date.Year == year)
             .GroupBy(lineItem => lineItem.Date.Month)
