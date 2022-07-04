@@ -5,7 +5,7 @@ export class HttpClient {
 
   constructor() {
     const API_BASE_URL =
-      process.env["API_BASE_URL"] ?? "https://localhost:5001/api/";
+      process.env["NEXT_PUBLIC_API_BASE_URL"] ?? "https://localhost:5001/api/";
     const TIMEOUT = 1000;
 
     this.client = axios.create({
@@ -17,7 +17,6 @@ export class HttpClient {
   async getCustomerList() {
     const response = await this.client.get<CustomerDTO[]>("Customer");
     const customers = response.data;
-    console.log(customers);
     return customers;
   }
 
@@ -28,14 +27,12 @@ export class HttpClient {
       },
     });
     const orders = response.data;
-    console.log(orders);
     return orders;
   }
 
   async getProductsList() {
     const response = await this.client.get<ProductDTO[]>("Product");
     const products = response.data;
-    console.log(products);
     return products;
   }
 
@@ -49,7 +46,6 @@ export class HttpClient {
       }
     );
     const productsLeft = response.data;
-    console.log(productId, productsLeft);
     return productsLeft;
   }
 
@@ -58,7 +54,6 @@ export class HttpClient {
       `LineItem/monthlyRevenue/${year}`
     );
     const monthlyGrossRevenueList = response.data;
-    console.log(monthlyGrossRevenueList);
     return monthlyGrossRevenueList;
   }
 }

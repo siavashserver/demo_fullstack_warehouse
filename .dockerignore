@@ -1,0 +1,16 @@
+*Dockerfile*
+
+.git
+
+bin
+obj
+node_modules
+
+.vs
+.vscode
+.idea
+
+.env
+.next
+.swc
+warehouse.db

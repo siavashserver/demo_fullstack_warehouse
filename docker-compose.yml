@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: ./frontend
+      target: PRODUCTION
+    ports:
+      - "3000:3000"
+
+  backend:
+    build:
+      context: ./backend
+      target: PRODUCTION
+    ports:
+      - "5000:80"
+      - "5001:443"
