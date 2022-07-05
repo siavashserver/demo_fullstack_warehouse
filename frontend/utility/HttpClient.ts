@@ -7,7 +7,7 @@ class HttpClient {
   constructor() {
     const API_BASE_URL =
       process.env["NEXT_PUBLIC_API_BASE_URL"] ?? "https://localhost:5001/api/";
-    const REQUEST_TIMEOUT = 10000;
+    const REQUEST_TIMEOUT = 30000;
     const MAX_AGE = 15 * 60 * 1000;
 
     const requestCache = setupCache({
