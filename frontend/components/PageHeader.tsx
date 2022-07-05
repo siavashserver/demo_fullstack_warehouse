@@ -22,49 +22,31 @@ const menuItems: MenuProps["items"] = [
     icon: <ShopOutlined />,
   },
   {
-    label: "Orders",
-    key: "orders",
+    label: (
+      <Link href="/CustomerOrders">
+        <a>Customer Orders</a>
+      </Link>
+    ),
+    key: "customer_orders",
     icon: <ShoppingCartOutlined />,
-    children: [
-      {
-        label: (
-          <Link href="/CustomerOrders">
-            <a>Customer Orders</a>
-          </Link>
-        ),
-        key: "customer_orders",
-      },
-    ],
   },
   {
-    label: "Products",
-    key: "products",
+    label: (
+      <Link href="/ProductsSummary">
+        <a>Products Summary</a>
+      </Link>
+    ),
+    key: "products_summary",
     icon: <ShoppingOutlined />,
-    children: [
-      {
-        label: (
-          <Link href="/ProductsSummary">
-            <a>Products Summary</a>
-          </Link>
-        ),
-        key: "products_summary",
-      },
-    ],
   },
   {
-    label: "Sells",
-    key: "sells",
+    label: (
+      <Link href="/MonthlyGrossRevenue">
+        <a>Monthly Gross Revenue</a>
+      </Link>
+    ),
+    key: "monthly_gross_revenue",
     icon: <LineChartOutlined />,
-    children: [
-      {
-        label: (
-          <Link href="/MonthlyGrossRevenue">
-            <a>Monthly Gross Revenue</a>
-          </Link>
-        ),
-        key: "monthly_gross_revenue",
-      },
-    ],
   },
 ];
 
