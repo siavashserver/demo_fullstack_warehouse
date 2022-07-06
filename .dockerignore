@@ -2,15 +2,15 @@
 
 .git
 
-bin
-obj
-node_modules
+**/bin
+**/obj
+**/node_modules
 
-.vs
-.vscode
-.idea
+**/.vs
+**/.vscode
+**/.idea
 
-.env
-.next
-.swc
-warehouse.db
+**/.env
+**/.next
+**/.swc
+**/warehouse.db
