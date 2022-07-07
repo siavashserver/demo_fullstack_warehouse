@@ -1,42 +1,27 @@
-import { Typography } from "antd";
+import { Alert, Typography } from "antd";
 import { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useSWR from "swr";
 import CustomerDetails from "../components/CustomerDetails";
 import CustomerSelector from "../components/CustomerSelector";
 import OrdersTable from "../components/OrdersTable";
-import { CachedHttpClient, CustomerDTO, OrderDTO } from "../utility/HttpClient";
+import { HttpClientInstance, CustomerDTO } from "../utility/HttpClient";
 
 const { Paragraph, Title } = Typography;
 
 const CustomerOrders: NextPage = () => {
   const [activeCustomer, setActiveCustomer] = useState<CustomerDTO>();
-  const [orders, setOrders] = useState<OrderDTO[]>();
-  const [customers, setCustomers] = useState<CustomerDTO[]>();
 
-  // Get customers list
-  useEffect(() => {
-    const fetchCustomers = async () => {
-      const result = await CachedHttpClient.getCustomerList();
-      setCustomers(result);
-    };
+  const { data: customers, error: customersError } = useSWR(
+    ["Customer"],
+    (path) => HttpClientInstance.getCustomerList()
+  );
 
-    fetchCustomers();
-  }, []);
-
-  // Get selected customer orders
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (null == activeCustomer) return;
-
-      const result = await CachedHttpClient.getCustomerOrders(
-        activeCustomer.customerId
-      );
-      setOrders(result);
-    };
-
-    fetchOrders();
-  }, [activeCustomer]);
+  const { data: orders, error: ordersError } = useSWR(
+    activeCustomer ? ["Order", activeCustomer.customerId] : null,
+    (path, customerId) => HttpClientInstance.getCustomerOrders(customerId)
+  );
 
   return (
     <>
@@ -57,12 +42,32 @@ const CustomerOrders: NextPage = () => {
           }}
         />
       </Paragraph>
+      {customersError && (
+        <Paragraph>
+          <Alert
+            message="Failed to load customers list."
+            description={`${customersError}`}
+            type="error"
+            showIcon
+          />
+        </Paragraph>
+      )}
       <Paragraph>
         <CustomerDetails customer={activeCustomer}></CustomerDetails>
       </Paragraph>
       <Paragraph>
         <OrdersTable orders={orders} />
       </Paragraph>
+      {ordersError && (
+        <Paragraph>
+          <Alert
+            message="Failed to load customer orders."
+            description={`${ordersError}`}
+            type="error"
+            showIcon
+          />
+        </Paragraph>
+      )}
     </>
   );
 };

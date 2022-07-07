@@ -1,7 +1,8 @@
-import { Card, Descriptions } from "antd";
+import { Alert, Card, Descriptions } from "antd";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
-import { CachedHttpClient, ProductDTO } from "../utility/HttpClient";
+import React from "react";
+import useSWR from "swr";
+import { HttpClientInstance, ProductDTO } from "../utility/HttpClient";
 
 interface ProductCardProps {
   product: ProductDTO;
@@ -9,19 +10,11 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props) => {
-  const [itemsLeft, setItemsLeft] = useState<number>(0);
-
-  useEffect(() => {
-    const fetchItemsLeft = async () => {
-      const result = await CachedHttpClient.getProductsLeft(
-        props.product.productId,
-        props.beforeDate
-      );
-      setItemsLeft(result);
-    };
-
-    fetchItemsLeft();
-  }, [props.beforeDate]);
+  const { data: itemsLeft, error: itemsLeftError } = useSWR(
+    ["LineItem/productsLeft", props.product.productId, props.beforeDate],
+    (path, productId, beforeDate) =>
+      HttpClientInstance.getProductsLeft(productId, beforeDate)
+  );
 
   return (
     <div>
@@ -42,6 +35,14 @@ const ProductCard: React.FC<ProductCardProps> = (props) => {
           </Descriptions.Item>
           <Descriptions.Item label="Items Left">{itemsLeft}</Descriptions.Item>
         </Descriptions>
+        {itemsLeftError && (
+          <Alert
+            message="Failed to load items left count."
+            description={`${itemsLeftError}`}
+            type="error"
+            showIcon
+          />
+        )}
       </Card>
     </div>
   );

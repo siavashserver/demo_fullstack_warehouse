@@ -1,28 +1,26 @@
-import { DatePicker, DatePickerProps, Space, Typography } from "antd";
+import { Alert, DatePicker, DatePickerProps, Space, Typography } from "antd";
+import moment from "moment";
 import { NextPage } from "next";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useSWR from "swr";
 import ProductCard from "../components/ProductCard";
-import { CachedHttpClient, ProductDTO } from "../utility/HttpClient";
+import { HttpClientInstance } from "../utility/HttpClient";
 
 const { Paragraph, Title } = Typography;
 
 const ProductsSummary: NextPage = () => {
-  const [productsList, setProductsList] = useState<ProductDTO[]>();
-  const [beforeDate, setBeforeDate] = useState<Date>(new Date(Date.now()));
+  const [beforeDate, setBeforeDate] = useState<Date>(new Date());
 
-  // Get products list
-  useEffect(() => {
-    const fetchProductsList = async () => {
-      const result = await CachedHttpClient.getProductsList();
-      setProductsList(result);
-    };
-
-    fetchProductsList();
-  }, []);
+  const { data: productsList, error: productsListError } = useSWR(
+    ["Product"],
+    (path) => HttpClientInstance.getProductsList()
+  );
 
   const datePickerHandler: DatePickerProps["onChange"] = (date) => {
-    if (undefined != date) setBeforeDate(date.toDate());
+    if (undefined == date || date.isAfter(moment())) return;
+
+    setBeforeDate(date.toDate());
   };
 
   return (
@@ -37,17 +35,29 @@ const ProductsSummary: NextPage = () => {
           <DatePicker onChange={datePickerHandler} />
         </Space>
       </Paragraph>
-      <div className="product-grid">
-        {productsList?.map((product, index) => {
-          return (
-            <ProductCard
-              key={index}
-              product={product}
-              beforeDate={beforeDate}
-            />
-          );
-        })}
-      </div>
+      {productsListError && (
+        <Paragraph>
+          <Alert
+            message="Failed to load products list."
+            description={`${productsListError}`}
+            type="error"
+            showIcon
+          />
+        </Paragraph>
+      )}
+      <Paragraph>
+        <div className="product-grid">
+          {productsList?.map((product, index) => {
+            return (
+              <ProductCard
+                key={index}
+                product={product}
+                beforeDate={beforeDate}
+              />
+            );
+          })}
+        </div>
+      </Paragraph>
     </>
   );
 };

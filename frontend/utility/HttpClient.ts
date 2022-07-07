@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import { setupCache } from "axios-cache-adapter";
 
 class HttpClient {
   private client: AxiosInstance;
@@ -7,20 +6,9 @@ class HttpClient {
   constructor() {
     const API_BASE_URL =
       process.env["NEXT_PUBLIC_API_BASE_URL"] ?? "https://localhost:5001/api/";
-    const REQUEST_TIMEOUT = 30000;
-    const MAX_AGE = 15 * 60 * 1000;
-
-    const requestCache = setupCache({
-      maxAge: MAX_AGE,
-      exclude: {
-        query: false,
-      },
-    });
 
     this.client = axios.create({
       baseURL: API_BASE_URL,
-      timeout: REQUEST_TIMEOUT,
-      adapter: requestCache.adapter,
     });
   }
 
@@ -102,4 +90,4 @@ export interface MonthlyGrossRevenueDTO {
   grossRevenue: number;
 }
 
-export const CachedHttpClient = new HttpClient();
+export const HttpClientInstance = new HttpClient();
