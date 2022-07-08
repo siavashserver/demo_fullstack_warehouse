@@ -18,6 +18,8 @@ builder.Services.AddInfraServices(builder.Configuration);
 builder.Services.AddCors();
 // Setup Controller Services
 builder.Services.AddControllers();
+// Setup Response Caching
+builder.Services.AddResponseCaching();
 
 // Setup OpenAPI/Swagger Services
 builder.Services.AddEndpointsApiExplorer();
@@ -47,6 +49,9 @@ app.UseCors(policy => policy
 );
 
 app.MapControllers();
+
+// Configure Response Caching
+app.UseResponseCaching();
 
 /*********************************************************/
 /* Migrate Database **************************************/

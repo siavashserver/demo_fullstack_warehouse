@@ -21,6 +21,7 @@ public class LineItemController : BaseAPIController
     }
 
     [HttpGet("monthlyRevenue/{year:int}")]
+    [ResponseCache(Duration = 10 * 60, Location = ResponseCacheLocation.Any)]
     public async Task<ActionResult<List<decimal>>> GetMonthlyGrossRevenueList(int year)
     {
         var revenue = await _mediator.Send(new GetMonthlyGrossRevenueListQuery.Request(year));
