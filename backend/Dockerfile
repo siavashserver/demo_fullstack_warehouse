@@ -6,6 +6,9 @@ WORKDIR /app
 COPY . ./
 WORKDIR /app/WebAPI
 RUN dotnet restore
+ENV DOTNET_ReadyToRun=0
+ENV DOTNET_TieredPGO=1
+ENV DOTNET_TC_QuickJitForLoops=1
 RUN dotnet publish -c Release -o out
 
 ###########################################################
