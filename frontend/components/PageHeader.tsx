@@ -1,51 +1,33 @@
-import React from "react";
-
-import { Layout, Menu, MenuProps } from "antd";
 import {
   LineChartOutlined,
   ShopOutlined,
   ShoppingCartOutlined,
   ShoppingOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
+import { Layout } from "antd";
+import NavBar, { NavBarItem } from "./NavBar";
 
 const { Header } = Layout;
 
-const menuItems: MenuProps["items"] = [
+const menuItems: NavBarItem[] = [
   {
-    label: (
-      <Link href="/">
-        <a>Home</a>
-      </Link>
-    ),
-    key: "home",
+    label: "Home",
+    link: "/",
     icon: <ShopOutlined />,
   },
   {
-    label: (
-      <Link href="/CustomerOrders">
-        <a>Customer Orders</a>
-      </Link>
-    ),
-    key: "customer_orders",
+    label: "Orders",
+    link: "/CustomerOrders",
     icon: <ShoppingCartOutlined />,
   },
   {
-    label: (
-      <Link href="/ProductsSummary">
-        <a>Products Summary</a>
-      </Link>
-    ),
-    key: "products_summary",
+    label: "Products",
+    link: "/ProductsSummary",
     icon: <ShoppingOutlined />,
   },
   {
-    label: (
-      <Link href="/MonthlyGrossRevenue">
-        <a>Monthly Gross Revenue</a>
-      </Link>
-    ),
-    key: "monthly_gross_revenue",
+    label: "Revenue",
+    link: "/MonthlyGrossRevenue",
     icon: <LineChartOutlined />,
   },
 ];
@@ -53,7 +35,7 @@ const menuItems: MenuProps["items"] = [
 const PageHeader = () => {
   return (
     <Header>
-      <Menu theme="dark" mode="horizontal" items={menuItems} />
+      <NavBar items={menuItems} />
     </Header>
   );
 };

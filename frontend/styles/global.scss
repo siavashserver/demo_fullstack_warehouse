@@ -13,3 +13,51 @@
   /* dynamic number of columns, with a min-width of 5rem, centered */
   grid-template-columns: repeat(auto-fit, 20rem);
 }
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: auto hidden;
+  height: 100%;
+
+  .navbar-item {
+    align-self: center;
+    padding: 0rem 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    color: white;
+
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+
+    transition: all 0.3s ease-out;
+
+    &:hover {
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid hsl(200, 100%, 45%);
+      background-color: hsl(200, 100%, 50%);
+    }
+
+    .navbar-item-block {
+      display: block;
+      min-width: max-content;
+
+      span {
+        align-self: center;
+        padding-right: 0.5rem;
+
+        svg {
+          fill: white;
+        }
+      }
+    }
+  }
+}
