@@ -48,6 +48,9 @@ app.UseCors(policy => policy
     .AllowAnyOrigin()
 );
 
+// Configure Exception Handler
+app.UseExceptionHandler("/api/errors");
+
 app.MapControllers();
 
 // Configure Response Caching
